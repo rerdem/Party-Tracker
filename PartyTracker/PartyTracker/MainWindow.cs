@@ -12,9 +12,38 @@ namespace PartyTracker
 {
     public partial class MainWindow : Form
     {
-        public MainWindow()
+        private PartyManager pm;
+        public MainWindow(PartyManager partyManager)
         {
             InitializeComponent();
+            pm = partyManager;
+            autosaveChangesToolStripMenuItem.Checked = pm.Autosave;
+        }
+
+        private void refreshPanel()
+        {
+            foreach (PlayerControl p in playerFlowPanel.Controls)
+            {
+                p.Dispose();
+            }
+
+            playerFlowPanel.Controls.Clear();
+
+            foreach (Player player in pm.Players)
+            {
+                playerFlowPanel.Controls.Add(new PlayerControl(pm, player));
+            }
+        }
+
+        private void addPlayerToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pm.AddPlayer();
+            refreshPanel();
+        }
+
+        private void startStopDeleteModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //To Do
         }
     }
 }

@@ -14,9 +14,11 @@ namespace PartyTracker
         [STAThread]
         static void Main()
         {
+            PartyManager pm = new PartyManager();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainWindow());
+            Application.Run(new MainWindow(pm));
         }
     }
 }

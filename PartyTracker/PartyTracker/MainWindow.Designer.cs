@@ -37,9 +37,10 @@
             this.managePartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startStopDeleteModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.editPartyNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.partyNoteBox = new System.Windows.Forms.WebBrowser();
-            this.editPartyNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autosaveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -58,6 +59,7 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.autosaveChangesToolStripMenuItem,
             this.savePartyToolStripMenuItem,
             this.loadPartyToolStripMenuItem,
             this.toolStripSeparator1,
@@ -69,24 +71,24 @@
             // savePartyToolStripMenuItem
             // 
             this.savePartyToolStripMenuItem.Name = "savePartyToolStripMenuItem";
-            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.savePartyToolStripMenuItem.Text = "Save Party";
             // 
             // loadPartyToolStripMenuItem
             // 
             this.loadPartyToolStripMenuItem.Name = "loadPartyToolStripMenuItem";
-            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.loadPartyToolStripMenuItem.Text = "Load Party";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             // 
             // managePartyToolStripMenuItem
@@ -103,17 +105,27 @@
             this.addPlayerToolStripMenuItem.Name = "addPlayerToolStripMenuItem";
             this.addPlayerToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.addPlayerToolStripMenuItem.Text = "Add Player";
+            this.addPlayerToolStripMenuItem.Click += new System.EventHandler(this.addPlayerToolStripMenuItem_Click);
             // 
             // startStopDeleteModeToolStripMenuItem
             // 
             this.startStopDeleteModeToolStripMenuItem.Name = "startStopDeleteModeToolStripMenuItem";
             this.startStopDeleteModeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.startStopDeleteModeToolStripMenuItem.Text = "Start/Stop Delete Mode";
+            this.startStopDeleteModeToolStripMenuItem.Click += new System.EventHandler(this.startStopDeleteModeToolStripMenuItem_Click);
+            // 
+            // editPartyNotesToolStripMenuItem
+            // 
+            this.editPartyNotesToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
+            this.editPartyNotesToolStripMenuItem.Name = "editPartyNotesToolStripMenuItem";
+            this.editPartyNotesToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.editPartyNotesToolStripMenuItem.Text = "Edit Party Notes";
             // 
             // playerFlowPanel
             // 
-            this.playerFlowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
+            this.playerFlowPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.playerFlowPanel.Location = new System.Drawing.Point(12, 28);
             this.playerFlowPanel.Name = "playerFlowPanel";
             this.playerFlowPanel.Size = new System.Drawing.Size(716, 521);
@@ -128,11 +140,13 @@
             this.partyNoteBox.Size = new System.Drawing.Size(250, 537);
             this.partyNoteBox.TabIndex = 2;
             // 
-            // editPartyNotesToolStripMenuItem
+            // autosaveChangesToolStripMenuItem
             // 
-            this.editPartyNotesToolStripMenuItem.Name = "editPartyNotesToolStripMenuItem";
-            this.editPartyNotesToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
-            this.editPartyNotesToolStripMenuItem.Text = "Edit Party Notes";
+            this.autosaveChangesToolStripMenuItem.Checked = true;
+            this.autosaveChangesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autosaveChangesToolStripMenuItem.Name = "autosaveChangesToolStripMenuItem";
+            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autosaveChangesToolStripMenuItem.Text = "Autosave Changes";
             // 
             // MainWindow
             // 
@@ -166,6 +180,7 @@
         private System.Windows.Forms.ToolStripMenuItem editPartyNotesToolStripMenuItem;
         private System.Windows.Forms.FlowLayoutPanel playerFlowPanel;
         private System.Windows.Forms.WebBrowser partyNoteBox;
+        private System.Windows.Forms.ToolStripMenuItem autosaveChangesToolStripMenuItem;
     }
 }
 

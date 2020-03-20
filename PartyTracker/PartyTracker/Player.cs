@@ -12,6 +12,7 @@ namespace PartyTracker
         public string CharacterName { get; set; }
         public string PlayerName { get; set; }
         public string Race { get; set; }
+        public bool ShowAdditionalInfo { get; set; }
         public string Class { get; set; }
         public int Level { get; set; }
         public string Background { get; set; }
@@ -21,28 +22,13 @@ namespace PartyTracker
         public int MaxHP { get; set; }
         public string Notes { get; set; }
 
-        public Player()
-        {
-            PlayerID = 0;
-            CharacterName = "";
-            PlayerName = "";
-            Race = "";
-            Class = "";
-            Level = 1;
-            Background = "";
-            Alignment = "";
-            AC = 0;
-            PassivePerception = 0;
-            MaxHP = 0;
-            Notes = "";
-        }
-
         public Player(int inputID)
         {
             PlayerID = inputID;
             CharacterName = "";
             PlayerName = "";
             Race = "";
+            ShowAdditionalInfo = true;
             Class = "";
             Level = 1;
             Background = "";
@@ -53,12 +39,13 @@ namespace PartyTracker
             Notes = "";
         }
 
-        public Player(int inputID, string inputCharacterName, string inputPlayerName, string inputRace, string inputClass, int inputLevel, string inputBackground, string inputAlignment, int inputAC, int inputPassivePerception, int inputMaxHP, string inputNotes)
+        public Player(int inputID, string inputCharacterName, string inputPlayerName, string inputRace, bool inputShowAdditionalInfo, string inputClass, int inputLevel, string inputBackground, string inputAlignment, int inputAC, int inputPassivePerception, int inputMaxHP, string inputNotes)
         {
             PlayerID = inputID;
             CharacterName = inputCharacterName;
             PlayerName = inputPlayerName;
             Race = inputRace;
+            ShowAdditionalInfo = inputShowAdditionalInfo;
             Class = inputClass;
             Level = inputLevel;
             Background = inputBackground;
