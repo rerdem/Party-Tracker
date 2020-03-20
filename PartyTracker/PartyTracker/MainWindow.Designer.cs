@@ -30,6 +30,7 @@
         {
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.autosaveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savePartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
@@ -40,7 +41,6 @@
             this.editPartyNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.partyNoteBox = new System.Windows.Forms.WebBrowser();
-            this.autosaveChangesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,27 +68,36 @@
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
+            // autosaveChangesToolStripMenuItem
+            // 
+            this.autosaveChangesToolStripMenuItem.Checked = true;
+            this.autosaveChangesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.autosaveChangesToolStripMenuItem.Name = "autosaveChangesToolStripMenuItem";
+            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autosaveChangesToolStripMenuItem.Text = "Autosave Changes";
+            this.autosaveChangesToolStripMenuItem.Click += new System.EventHandler(this.autosaveChangesToolStripMenuItem_Click);
+            // 
             // savePartyToolStripMenuItem
             // 
             this.savePartyToolStripMenuItem.Name = "savePartyToolStripMenuItem";
-            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.savePartyToolStripMenuItem.Text = "Save Party";
             // 
             // loadPartyToolStripMenuItem
             // 
             this.loadPartyToolStripMenuItem.Name = "loadPartyToolStripMenuItem";
-            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadPartyToolStripMenuItem.Text = "Load Party";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             // 
             // managePartyToolStripMenuItem
@@ -139,14 +148,6 @@
             this.partyNoteBox.Name = "partyNoteBox";
             this.partyNoteBox.Size = new System.Drawing.Size(250, 537);
             this.partyNoteBox.TabIndex = 2;
-            // 
-            // autosaveChangesToolStripMenuItem
-            // 
-            this.autosaveChangesToolStripMenuItem.Checked = true;
-            this.autosaveChangesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.autosaveChangesToolStripMenuItem.Name = "autosaveChangesToolStripMenuItem";
-            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.autosaveChangesToolStripMenuItem.Text = "Autosave Changes";
             // 
             // MainWindow
             // 

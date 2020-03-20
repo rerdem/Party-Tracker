@@ -10,7 +10,11 @@ namespace PartyTracker
     {
         public string PartyNotes { get; set; }
         public bool Autosave { get; set; }
+        public bool DeleteMode { get; private set; }
         public List<Player> Players { get; }
+
+        public event EventHandler PlayerRemoved;
+        public event EventHandler LastPlayerRemoved;
 
         private int IDCounter;
 
@@ -18,6 +22,7 @@ namespace PartyTracker
         {
             PartyNotes = "";
             Autosave = true;
+            DeleteMode = false;
             Players = new List<Player>();
 
             IDCounter = 0;
@@ -40,7 +45,12 @@ namespace PartyTracker
             int indexToRemove = Players.FindIndex(p => p.PlayerID == IDToRemove);
             Players.RemoveAt(indexToRemove);
 
-            //add event to end "Delete Mode" on removal of last party member
+            OnPlayerRemoved(null);
+
+            if (Players.Count==0)
+            {
+                OnLastPlayerRemoved(null);
+            }
         }
 
         public void UpdateCharacterName(int playerID, string characterName)
@@ -112,6 +122,37 @@ namespace PartyTracker
         {
             int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
             Players.ElementAt(indexToUpdate).ShowAdditionalInfo = showAdditionalInfo;
+        }
+
+        public void StartDeleteMode()
+        {
+            if (Players.Count>0)
+            {
+                DeleteMode = true;
+            }
+        }
+
+        public void StopDeleteMode()
+        {
+            DeleteMode = false;
+        }
+
+        protected virtual void OnPlayerRemoved(EventArgs e)
+        {
+            EventHandler handler = PlayerRemoved;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnLastPlayerRemoved(EventArgs e)
+        {
+            EventHandler handler = LastPlayerRemoved;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
     }
 }

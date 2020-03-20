@@ -42,6 +42,25 @@ namespace PartyTracker
             {
                 classPanel.Visible = false;
             }
+
+            if (pm.DeleteMode)
+            {
+                deleteButton.Visible = true;
+            }
+            else
+            {
+                deleteButton.Visible = false;
+            }
+        }
+
+        public void ShowDeleteButton()
+        {
+            deleteButton.Visible = true;
+        }
+
+        public void HideDeleteButton()
+        {
+            deleteButton.Visible = false;
         }
 
         private void expandButton_Click(object sender, EventArgs e)
@@ -53,6 +72,7 @@ namespace PartyTracker
         private void deleteButton_Click(object sender, EventArgs e)
         {
             pm.RemovePlayer(player.PlayerID);
+            this.Dispose();
         }
 
         private void charNameBox_ModifiedChanged(object sender, EventArgs e)

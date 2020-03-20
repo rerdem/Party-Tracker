@@ -13,10 +13,15 @@ namespace PartyTracker
     public partial class MainWindow : Form
     {
         private PartyManager pm;
+        
         public MainWindow(PartyManager partyManager)
         {
             InitializeComponent();
+            
             pm = partyManager;
+            pm.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
+            pm.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
+
             autosaveChangesToolStripMenuItem.Checked = pm.Autosave;
         }
 
@@ -43,7 +48,38 @@ namespace PartyTracker
 
         private void startStopDeleteModeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //To Do
+            if (!pm.DeleteMode)
+            {
+                pm.StartDeleteMode();
+                foreach (PlayerControl p in playerFlowPanel.Controls)
+                {
+                    p.ShowDeleteButton();
+                }
+            }
+            else
+            {
+                pm.StopDeleteMode();
+                foreach (PlayerControl p in playerFlowPanel.Controls)
+                {
+                    p.HideDeleteButton();
+                }
+            }
+        }
+
+        private void autosaveChangesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            autosaveChangesToolStripMenuItem.Checked = !autosaveChangesToolStripMenuItem.Checked;
+            pm.Autosave = autosaveChangesToolStripMenuItem.Checked;
+        }
+
+        private void pm_PlayerRemoved(object sender, EventArgs e)
+        {
+            //refreshPanel();
+        }
+
+        private void pm_LastPlayerRemoved(object sender, EventArgs e)
+        {
+            pm.StopDeleteMode();
         }
     }
 }
