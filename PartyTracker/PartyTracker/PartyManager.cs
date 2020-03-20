@@ -8,13 +8,15 @@ namespace PartyTracker
 {
     public class PartyManager
     {
-        public string PartyNotes { get; set; }
+        public string PartyNotes { get; private set; }
         public bool Autosave { get; set; }
         public bool DeleteMode { get; private set; }
         public List<Player> Players { get; }
 
         public event EventHandler PlayerRemoved;
         public event EventHandler LastPlayerRemoved;
+
+        public event EventHandler PartyNotesChanged;
 
         private int IDCounter;
 
@@ -124,6 +126,13 @@ namespace PartyTracker
             Players.ElementAt(indexToUpdate).ShowAdditionalInfo = showAdditionalInfo;
         }
 
+        public void UpdatePartyNotes(string newPartyNotes)
+        {
+            PartyNotes = newPartyNotes;
+
+            OnPartyNotesChanged(null);
+        }
+
         public void StartDeleteMode()
         {
             if (Players.Count>0)
@@ -149,6 +158,15 @@ namespace PartyTracker
         protected virtual void OnLastPlayerRemoved(EventArgs e)
         {
             EventHandler handler = LastPlayerRemoved;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnPartyNotesChanged(EventArgs e)
+        {
+            EventHandler handler = PartyNotesChanged;
             if (handler != null)
             {
                 handler(this, e);

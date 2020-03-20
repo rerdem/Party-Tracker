@@ -73,31 +73,31 @@
             this.autosaveChangesToolStripMenuItem.Checked = true;
             this.autosaveChangesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autosaveChangesToolStripMenuItem.Name = "autosaveChangesToolStripMenuItem";
-            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.autosaveChangesToolStripMenuItem.Text = "Autosave Changes";
             this.autosaveChangesToolStripMenuItem.Click += new System.EventHandler(this.autosaveChangesToolStripMenuItem_Click);
             // 
             // savePartyToolStripMenuItem
             // 
             this.savePartyToolStripMenuItem.Name = "savePartyToolStripMenuItem";
-            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.savePartyToolStripMenuItem.Text = "Save Party";
             // 
             // loadPartyToolStripMenuItem
             // 
             this.loadPartyToolStripMenuItem.Name = "loadPartyToolStripMenuItem";
-            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.loadPartyToolStripMenuItem.Text = "Load Party";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(169, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             // 
             // managePartyToolStripMenuItem
@@ -129,6 +129,7 @@
             this.editPartyNotesToolStripMenuItem.Name = "editPartyNotesToolStripMenuItem";
             this.editPartyNotesToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
             this.editPartyNotesToolStripMenuItem.Text = "Edit Party Notes";
+            this.editPartyNotesToolStripMenuItem.Click += new System.EventHandler(this.editPartyNotesToolStripMenuItem_Click);
             // 
             // playerFlowPanel
             // 

@@ -21,6 +21,7 @@ namespace PartyTracker
             pm = partyManager;
             pm.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
             pm.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
+            pm.PartyNotesChanged += new EventHandler(pm_PartyNotesChanged);
 
             autosaveChangesToolStripMenuItem.Checked = pm.Autosave;
         }
@@ -38,6 +39,11 @@ namespace PartyTracker
             {
                 playerFlowPanel.Controls.Add(new PlayerControl(pm, player));
             }
+        }
+
+        private void refreshPartyNotes()
+        {
+            partyNoteBox.DocumentText = Markdig.Markdown.ToHtml(pm.PartyNotes);
         }
 
         private void addPlayerToolStripMenuItem_Click(object sender, EventArgs e)
@@ -80,6 +86,21 @@ namespace PartyTracker
         private void pm_LastPlayerRemoved(object sender, EventArgs e)
         {
             pm.StopDeleteMode();
+        }
+
+        private void pm_PartyNotesChanged(object sender, EventArgs e)
+        {
+            refreshPartyNotes();
+        }
+
+        private void editPartyNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            NoteEditor editor = new NoteEditor();
+            string editingResult = editor.ShowDialog("Party Notes", pm.PartyNotes);
+            if (!string.IsNullOrEmpty(editingResult))
+            {
+                pm.UpdatePartyNotes(editingResult);
+            }
         }
     }
 }
