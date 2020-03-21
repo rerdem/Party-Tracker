@@ -9,7 +9,7 @@ namespace PartyTracker
     public class PartyManager
     {
         public string PartyNotes { get; private set; }
-        public bool Autosave { get; set; }
+        public string PartyName { get; private set; }
         public bool DeleteMode { get; private set; }
         public List<Player> Players { get; }
 
@@ -17,17 +17,20 @@ namespace PartyTracker
         public event EventHandler LastPlayerRemoved;
 
         public event EventHandler PartyNotesChanged;
+        public event EventHandler PartyNameChanged;
 
         private int IDCounter;
+        private bool HasCurrentPartyBeenSaved;
 
         public PartyManager()
         {
             PartyNotes = "";
-            Autosave = true;
+            PartyName = "";
             DeleteMode = false;
             Players = new List<Player>();
 
             IDCounter = 0;
+            HasCurrentPartyBeenSaved = false;
         }
 
         public void AddPlayer()
@@ -133,6 +136,15 @@ namespace PartyTracker
             OnPartyNotesChanged(null);
         }
 
+        public void UpdatePartyName(string newPartyName)
+        {
+            PartyName = newPartyName;
+            Properties.Settings.Default.LastOpenedParty = newPartyName;
+            Properties.Settings.Default.Save();
+
+            OnPartyNameChanged(null);
+        }
+
         public void StartDeleteMode()
         {
             if (Players.Count>0)
@@ -144,6 +156,11 @@ namespace PartyTracker
         public void StopDeleteMode()
         {
             DeleteMode = false;
+        }
+
+        public void saveParty()
+        {
+
         }
 
         protected virtual void OnPlayerRemoved(EventArgs e)
@@ -167,6 +184,15 @@ namespace PartyTracker
         protected virtual void OnPartyNotesChanged(EventArgs e)
         {
             EventHandler handler = PartyNotesChanged;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnPartyNameChanged(EventArgs e)
+        {
+            EventHandler handler = PartyNameChanged;
             if (handler != null)
             {
                 handler(this, e);
