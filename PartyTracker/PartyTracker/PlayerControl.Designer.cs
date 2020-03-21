@@ -148,7 +148,7 @@
             this.playerNameBox.Name = "playerNameBox";
             this.playerNameBox.Size = new System.Drawing.Size(150, 20);
             this.playerNameBox.TabIndex = 3;
-            this.playerNameBox.ModifiedChanged += new System.EventHandler(this.playerNameBox_ModifiedChanged);
+            this.playerNameBox.TextChanged += new System.EventHandler(this.playerNameBox_TextChanged);
             // 
             // raceBox
             // 
@@ -158,7 +158,7 @@
             this.raceBox.Name = "raceBox";
             this.raceBox.Size = new System.Drawing.Size(150, 20);
             this.raceBox.TabIndex = 2;
-            this.raceBox.ModifiedChanged += new System.EventHandler(this.raceBox_ModifiedChanged);
+            this.raceBox.TextChanged += new System.EventHandler(this.raceBox_TextChanged);
             // 
             // charNameLabel
             // 
@@ -177,7 +177,7 @@
             this.charNameBox.Name = "charNameBox";
             this.charNameBox.Size = new System.Drawing.Size(306, 29);
             this.charNameBox.TabIndex = 0;
-            this.charNameBox.ModifiedChanged += new System.EventHandler(this.charNameBox_ModifiedChanged);
+            this.charNameBox.TextChanged += new System.EventHandler(this.charNameBox_TextChanged);
             // 
             // classPanel
             // 
@@ -238,7 +238,7 @@
             this.alignmentBox.Name = "alignmentBox";
             this.alignmentBox.Size = new System.Drawing.Size(150, 23);
             this.alignmentBox.TabIndex = 3;
-            this.alignmentBox.ModifiedChanged += new System.EventHandler(this.alignmentBox_ModifiedChanged);
+            this.alignmentBox.TextChanged += new System.EventHandler(this.alignmentBox_TextChanged);
             // 
             // backgroundBox
             // 
@@ -248,7 +248,7 @@
             this.backgroundBox.Name = "backgroundBox";
             this.backgroundBox.Size = new System.Drawing.Size(150, 23);
             this.backgroundBox.TabIndex = 2;
-            this.backgroundBox.ModifiedChanged += new System.EventHandler(this.backgroundBox_ModifiedChanged);
+            this.backgroundBox.TextChanged += new System.EventHandler(this.backgroundBox_TextChanged);
             // 
             // levelBox
             // 
@@ -281,7 +281,7 @@
             this.classBox.Name = "classBox";
             this.classBox.Size = new System.Drawing.Size(150, 23);
             this.classBox.TabIndex = 0;
-            this.classBox.ModifiedChanged += new System.EventHandler(this.classBox_ModifiedChanged);
+            this.classBox.TextChanged += new System.EventHandler(this.classBox_TextChanged);
             // 
             // statPanel
             // 
@@ -395,6 +395,7 @@
             this.noteEditButton.TabIndex = 0;
             this.noteEditButton.Text = "Edit";
             this.noteEditButton.UseVisualStyleBackColor = true;
+            this.noteEditButton.Click += new System.EventHandler(this.noteEditButton_Click);
             // 
             // PlayerControl
             // 

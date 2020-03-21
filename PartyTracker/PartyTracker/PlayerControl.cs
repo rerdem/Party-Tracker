@@ -32,7 +32,7 @@ namespace PartyTracker
             acBox.Value = player.AC;
             passivePerceptionBox.Value = player.PassivePerception;
             maxHPBox.Value = player.MaxHP;
-            noteBrowser.DocumentText = player.Notes;
+            noteBrowser.DocumentText = Markdig.Markdown.ToHtml(player.Notes);
 
             if (player.ShowAdditionalInfo)
             {
@@ -75,22 +75,22 @@ namespace PartyTracker
             this.Dispose();
         }
 
-        private void charNameBox_ModifiedChanged(object sender, EventArgs e)
+        private void charNameBox_TextChanged(object sender, EventArgs e)
         {
             pm.UpdateCharacterName(player.PlayerID, charNameBox.Text);
         }
 
-        private void raceBox_ModifiedChanged(object sender, EventArgs e)
+        private void raceBox_TextChanged(object sender, EventArgs e)
         {
             pm.UpdateRace(player.PlayerID, raceBox.Text);
         }
 
-        private void playerNameBox_ModifiedChanged(object sender, EventArgs e)
+        private void playerNameBox_TextChanged(object sender, EventArgs e)
         {
             pm.UpdatePlayerName(player.PlayerID, playerNameBox.Text);
         }
 
-        private void classBox_ModifiedChanged(object sender, EventArgs e)
+        private void classBox_TextChanged(object sender, EventArgs e)
         {
             pm.UpdateClass(player.PlayerID, classBox.Text);
         }
@@ -100,12 +100,12 @@ namespace PartyTracker
             pm.UpdateLevel(player.PlayerID, (int)levelBox.Value);
         }
 
-        private void backgroundBox_ModifiedChanged(object sender, EventArgs e)
+        private void backgroundBox_TextChanged(object sender, EventArgs e)
         {
             pm.UpdateBackground(player.PlayerID, backgroundBox.Text);
         }
 
-        private void alignmentBox_ModifiedChanged(object sender, EventArgs e)
+        private void alignmentBox_TextChanged(object sender, EventArgs e)
         {
             pm.UpdateAlignment(player.PlayerID, alignmentBox.Text);
         }
@@ -123,6 +123,17 @@ namespace PartyTracker
         private void maxHPBox_ValueChanged(object sender, EventArgs e)
         {
             pm.UpdateMaxHP(player.PlayerID, (int)maxHPBox.Value);
+        }
+
+        private void noteEditButton_Click(object sender, EventArgs e)
+        {
+            NoteEditor editor = new NoteEditor();
+            string editingResult = editor.ShowDialog($"{player.CharacterName} Player Notes", player.Notes);
+            if (!string.IsNullOrEmpty(editingResult))
+            {
+                pm.UpdateNotes(player.PlayerID, editingResult);
+                noteBrowser.DocumentText = Markdig.Markdown.ToHtml(player.Notes);
+            }
         }
     }
 }
