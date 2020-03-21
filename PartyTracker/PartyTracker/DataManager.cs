@@ -26,24 +26,24 @@ namespace PartyTracker
 
 
 
-        public void exportPartyToJSON(string path, PartyManager pm)
+        public void exportPartyToJSON(string path, Party currentParty)
         {
             int indexOfLastBackslash = path.LastIndexOf("\\");
             FileInfo file = new FileInfo(path.Substring(0, indexOfLastBackslash));
             file.Directory.Create();
-            File.WriteAllText(path, JsonConvert.SerializeObject(pm, Formatting.Indented));
+            File.WriteAllText(path, JsonConvert.SerializeObject(currentParty, Formatting.Indented));
         }
 
-        public PartyManager importPartyFromJson(string path)
+        public Party importPartyFromJson(string path)
         {
-            PartyManager pm = new PartyManager();
+            Party loadedParty = new Party();
             
             if (File.Exists(path))
             {
-                pm = JsonConvert.DeserializeObject<PartyManager>(File.ReadAllText(path));
+                loadedParty = JsonConvert.DeserializeObject<Party>(File.ReadAllText(path));
             }
 
-            return pm;
+            return loadedParty;
         }
     }
 }

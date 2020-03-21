@@ -19,10 +19,10 @@ namespace PartyTracker
             InitializeComponent();
             
             pm = partyManager;
-            pm.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
-            pm.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
-            pm.PartyNotesChanged += new EventHandler(pm_PartyNotesChanged);
-            pm.PartyNameChanged += new EventHandler(pm_PartyNameChanged);
+            pm.CurrentParty.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
+            pm.CurrentParty.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
+            pm.CurrentParty.PartyNotesChanged += new EventHandler(pm_PartyNotesChanged);
+            pm.CurrentParty.PartyNameChanged += new EventHandler(pm_PartyNameChanged);
 
             autosaveChangesToolStripMenuItem.Checked = Properties.Settings.Default.AutoSave;
         }
@@ -36,7 +36,7 @@ namespace PartyTracker
 
             playerFlowPanel.Controls.Clear();
 
-            foreach (Player player in pm.Players)
+            foreach (Player player in pm.CurrentParty.Players)
             {
                 playerFlowPanel.Controls.Add(new PlayerControl(pm, player));
             }
@@ -44,7 +44,7 @@ namespace PartyTracker
 
         private void refreshPartyNotes()
         {
-            partyNoteBox.DocumentText = Markdig.Markdown.ToHtml(pm.PartyNotes);
+            partyNoteBox.DocumentText = Markdig.Markdown.ToHtml(pm.CurrentParty.PartyNotes);
         }
 
         private void autosaveChangesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -97,13 +97,13 @@ namespace PartyTracker
 
         private void pm_PartyNameChanged(object sender, EventArgs e)
         {
-            partyNameLabel.Text = pm.PartyName;
+            partyNameLabel.Text = pm.CurrentParty.PartyName;
         }
 
         private void editPartyNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             NoteEditor editor = new NoteEditor();
-            string editingResult = editor.ShowDialog("Party Notes", pm.PartyNotes);
+            string editingResult = editor.ShowDialog("Party Notes", pm.CurrentParty.PartyNotes);
             if (!string.IsNullOrEmpty(editingResult))
             {
                 pm.UpdatePartyNotes(editingResult);
@@ -117,10 +117,10 @@ namespace PartyTracker
 
         private void savePartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(pm.PartyName))
+            if (string.IsNullOrWhiteSpace(pm.CurrentParty.PartyName))
             {
                 SaveForm saveWindow = new SaveForm();
-                string newPartyName = saveWindow.ShowDialog("Save Party As...", pm.PartyName);
+                string newPartyName = saveWindow.ShowDialog("Save Party As...", pm.CurrentParty.PartyName);
                 if (!string.IsNullOrEmpty(newPartyName))
                 {
                     pm.UpdatePartyName(newPartyName);
@@ -136,7 +136,7 @@ namespace PartyTracker
         private void renamePartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveForm renameWindow = new SaveForm();
-            string newPartyName = renameWindow.ShowDialog("Rename Party...", pm.PartyName);
+            string newPartyName = renameWindow.ShowDialog("Rename Party...", pm.CurrentParty.PartyName);
             if (!string.IsNullOrWhiteSpace(newPartyName))
             {
                 pm.UpdatePartyName(newPartyName);

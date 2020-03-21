@@ -67,6 +67,7 @@
     <Compile Include="NoteEditor.Designer.cs">
       <DependentUpon>NoteEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Party.cs" />
     <Compile Include="PartyManager.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerControl.cs">

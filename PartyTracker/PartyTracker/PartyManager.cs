@@ -8,146 +8,106 @@ namespace PartyTracker
 {
     public class PartyManager
     {
-        public string PartyNotes { get; private set; }
-        public string PartyName { get; private set; }
         public bool DeleteMode { get; private set; }
-        public List<Player> Players { get; }
+        public Party CurrentParty { get; private set; }
 
-        public event EventHandler PlayerRemoved;
-        public event EventHandler LastPlayerRemoved;
-
-        public event EventHandler PartyNotesChanged;
-        public event EventHandler PartyNameChanged;
-
-        private int IDCounter;
         private bool HasCurrentPartyBeenSaved;
 
         public PartyManager()
         {
-            PartyNotes = "";
-            PartyName = "";
+            CurrentParty = new Party();
             DeleteMode = false;
-            Players = new List<Player>();
-
-            IDCounter = 0;
             HasCurrentPartyBeenSaved = false;
         }
 
         public void AddPlayer()
         {
-            Players.Add(new Player(IDCounter));
-            IDCounter++;
+            CurrentParty.AddPlayer();
         }
 
         public void AddPlayer(string characterName, string playerName, string race, bool showAdditionalInfo, string characterClass, int level, string background, string alignment, int ac, int passivePerception, int maxHP, string notes)
         {
-            Players.Add(new Player(IDCounter, characterName, playerName, race, showAdditionalInfo, characterClass, level, background, alignment, ac, passivePerception, maxHP, notes));
-            IDCounter++;
+            CurrentParty.AddPlayer(characterName, playerName, race, showAdditionalInfo, characterClass, level, background, alignment, ac, passivePerception, maxHP, notes);
         }
 
         public void RemovePlayer(int IDToRemove)
         {
-            int indexToRemove = Players.FindIndex(p => p.PlayerID == IDToRemove);
-            Players.RemoveAt(indexToRemove);
-
-            OnPlayerRemoved(null);
-
-            if (Players.Count==0)
-            {
-                OnLastPlayerRemoved(null);
-            }
+            CurrentParty.RemovePlayer(IDToRemove);
         }
 
         public void UpdateCharacterName(int playerID, string characterName)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).CharacterName = characterName;
+            CurrentParty.UpdateCharacterName(playerID, characterName);
         }
 
         public void UpdateRace(int playerID, string characterRace)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).Race = characterRace;
+            CurrentParty.UpdateRace(playerID, characterRace);
         }
+
         public void UpdatePlayerName(int playerID, string playerName)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).PlayerName = playerName;
+            CurrentParty.UpdatePlayerName(playerID, playerName);
         }
 
         public void UpdateClass(int playerID, string characterClass)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).Class = characterClass;
+            CurrentParty.UpdateClass(playerID, characterClass);
         }
 
         public void UpdateLevel(int playerID, int characterLevel)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).Level = characterLevel;
+            CurrentParty.UpdateLevel(playerID, characterLevel);
         }
 
         public void UpdateBackground(int playerID, string characterBackground)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).Background = characterBackground;
+            CurrentParty.UpdateBackground(playerID, characterBackground);
         }
 
         public void UpdateAlignment(int playerID, string characterAlignment)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).Alignment = characterAlignment;
+            CurrentParty.UpdateAlignment(playerID, characterAlignment);
         }
 
         public void UpdateArmorClass(int playerID, int armorClass)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).AC = armorClass;
+            CurrentParty.UpdateArmorClass(playerID, armorClass);
         }
 
         public void UpdatePassivePercetion(int playerID, int passivePerception)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).PassivePerception = passivePerception;
+            CurrentParty.UpdatePassivePercetion(playerID, passivePerception);
         }
 
         public void UpdateMaxHP(int playerID, int maxHP)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).MaxHP = maxHP;
+            CurrentParty.UpdateMaxHP(playerID, maxHP);
         }
 
         public void UpdateNotes(int playerID, string characterNotes)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).Notes = characterNotes;
+            CurrentParty.UpdateNotes(playerID, characterNotes);
         }
 
         public void UpdateShowAdditionalInfo(int playerID, bool showAdditionalInfo)
         {
-            int indexToUpdate = Players.FindIndex(p => p.PlayerID == playerID);
-            Players.ElementAt(indexToUpdate).ShowAdditionalInfo = showAdditionalInfo;
+            CurrentParty.UpdateShowAdditionalInfo(playerID, showAdditionalInfo);
         }
 
         public void UpdatePartyNotes(string newPartyNotes)
         {
-            PartyNotes = newPartyNotes;
-
-            OnPartyNotesChanged(null);
+            CurrentParty.UpdatePartyNotes(newPartyNotes);
         }
 
         public void UpdatePartyName(string newPartyName)
         {
-            PartyName = newPartyName;
-            Properties.Settings.Default.LastOpenedParty = newPartyName;
-            Properties.Settings.Default.Save();
-
-            OnPartyNameChanged(null);
+            CurrentParty.UpdatePartyName(newPartyName);
         }
 
         public void StartDeleteMode()
         {
-            if (Players.Count>0)
+            if (CurrentParty.Players.Count>0)
             {
                 DeleteMode = true;
             }
@@ -161,42 +121,6 @@ namespace PartyTracker
         public void saveParty()
         {
 
-        }
-
-        protected virtual void OnPlayerRemoved(EventArgs e)
-        {
-            EventHandler handler = PlayerRemoved;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnLastPlayerRemoved(EventArgs e)
-        {
-            EventHandler handler = LastPlayerRemoved;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnPartyNotesChanged(EventArgs e)
-        {
-            EventHandler handler = PartyNotesChanged;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
-        }
-
-        protected virtual void OnPartyNameChanged(EventArgs e)
-        {
-            EventHandler handler = PartyNameChanged;
-            if (handler != null)
-            {
-                handler(this, e);
-            }
         }
     }
 }
