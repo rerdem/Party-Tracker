@@ -119,13 +119,15 @@ namespace PartyTracker
         {
             if (string.IsNullOrWhiteSpace(pm.CurrentParty.PartyName))
             {
-                SaveForm saveWindow = new SaveForm();
+                SaveForm saveWindow = new SaveForm(pm);
                 string newPartyName = saveWindow.ShowDialog("Save Party As...", pm.CurrentParty.PartyName);
                 if (!string.IsNullOrEmpty(newPartyName))
                 {
                     pm.UpdatePartyName(newPartyName);
                 }
             }
+
+            //to do: actually save
         }
 
         private void loadPartyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -135,7 +137,7 @@ namespace PartyTracker
 
         private void renamePartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            SaveForm renameWindow = new SaveForm();
+            SaveForm renameWindow = new SaveForm(pm);
             string newPartyName = renameWindow.ShowDialog("Rename Party...", pm.CurrentParty.PartyName);
             if (!string.IsNullOrWhiteSpace(newPartyName))
             {

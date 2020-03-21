@@ -12,12 +12,14 @@ namespace PartyTracker
         public Party CurrentParty { get; private set; }
 
         private bool HasCurrentPartyBeenSaved;
+        private DataManager dm;
 
         public PartyManager()
         {
             CurrentParty = new Party();
             DeleteMode = false;
             HasCurrentPartyBeenSaved = false;
+            dm = new DataManager();
         }
 
         public void AddPlayer()
@@ -118,9 +120,15 @@ namespace PartyTracker
             DeleteMode = false;
         }
 
+        public bool IsPartyNameUnique(string partyName)
+        {
+            return !dm.PartyList.Contains(partyName);
+        }
+
         public void saveParty()
         {
-
+            //to do
+            dm.RefreshPartyList();
         }
     }
 }

@@ -12,9 +12,13 @@ namespace PartyTracker
 {
     public partial class SaveForm : Form
     {
-        public SaveForm()
+        private PartyManager pm;
+
+        public SaveForm(PartyManager manager)
         {
             InitializeComponent();
+
+            pm = manager;
 
             okButton.Click += (sender, e) => { Close(); };
         }
@@ -29,12 +33,25 @@ namespace PartyTracker
 
         private void partyNameBox_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(partyNameBox.Text))
+            //to do: check, if party name already exists
+            
+
+            if ((!string.IsNullOrWhiteSpace(partyNameBox.Text)) && (pm.IsPartyNameUnique(partyNameBox.Text)))
             {
+                errorLabel.Visible = false;
                 okButton.Enabled = true;
             }
             else
             {
+                if (!pm.IsPartyNameUnique(partyNameBox.Text))
+                {
+                    errorLabel.Visible = true;
+                }
+                else
+                {
+                    errorLabel.Visible = false;
+                }
+
                 okButton.Enabled = false;
             }
         }
