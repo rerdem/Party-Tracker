@@ -11,15 +11,17 @@ namespace PartyTracker
         public bool DeleteMode { get; private set; }
         public Party CurrentParty { get; private set; }
 
-        private bool HasCurrentPartyBeenSaved;
         private DataManager dm;
+        private string OldPartyName;
 
         public PartyManager()
         {
             CurrentParty = new Party();
             DeleteMode = false;
-            HasCurrentPartyBeenSaved = false;
             dm = new DataManager();
+            OldPartyName = "";
+
+            CurrentParty.PartyNameChanged += new EventHandler(cp_PartyNameChanged);
         }
 
         public void AddPlayer()
@@ -104,6 +106,7 @@ namespace PartyTracker
 
         public void UpdatePartyName(string newPartyName)
         {
+            OldPartyName = CurrentParty.PartyName;
             CurrentParty.UpdatePartyName(newPartyName);
         }
 
@@ -125,9 +128,39 @@ namespace PartyTracker
             return !dm.PartyList.Contains(partyName);
         }
 
-        public void saveParty()
+        private void RefreshLastOpenedParty()
         {
-            //to do
+            Properties.Settings.Default.LastOpenedParty = CurrentParty.PartyName;
+            Properties.Settings.Default.Save();
+        }
+
+        public void SaveParty()
+        {
+            dm.ExportPartyToJSON(CurrentParty);
+            RefreshLastOpenedParty();
+            dm.RefreshPartyList();
+        }
+
+        public void LoadParty()
+        {
+            //set last party name to current
+        }
+
+        public void CreateNewParty()
+        {
+            //set last party name to current
+        }
+
+        private void cp_PartyNameChanged(object sender, EventArgs e)
+        {
+            SaveParty();
+            RefreshLastOpenedParty();
+            
+            if (!string.IsNullOrWhiteSpace(OldPartyName))
+            {
+                dm.DeleteParty(OldPartyName);
+            }
+
             dm.RefreshPartyList();
         }
     }

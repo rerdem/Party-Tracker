@@ -22,16 +22,12 @@ namespace PartyTracker
 
         public DataManager()
         {
-            FolderPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}SavedParties";
+            FolderPath = $"{Directory.GetCurrentDirectory()}{Path.DirectorySeparatorChar}SavedParties{Path.DirectorySeparatorChar}";
             Directory.CreateDirectory(FolderPath);
 
             PartyList = new List<string>();
             RefreshPartyList();
-            Console.WriteLine(PartyList.ElementAt(0));
         }
-
-
-
 
         public void RefreshPartyList()
         {
@@ -40,12 +36,19 @@ namespace PartyTracker
                         .ToList();
         }
 
-        public void ExportPartyToJSON(string path, Party currentParty)
+        public void DeleteParty(string partyNameToDelete)
         {
-            int indexOfLastBackslash = path.LastIndexOf("\\");
-            FileInfo file = new FileInfo(path.Substring(0, indexOfLastBackslash));
+            string fullPath = $"{FolderPath}{partyNameToDelete}.json";
+            File.Delete(fullPath);
+        }
+
+        public void ExportPartyToJSON(Party currentParty)
+        {
+            string fullPath = $"{FolderPath}{currentParty.PartyName}.json";
+            int indexOfLastBackslash = fullPath.LastIndexOf("\\");
+            FileInfo file = new FileInfo(fullPath.Substring(0, indexOfLastBackslash));
             file.Directory.Create();
-            File.WriteAllText(path, JsonConvert.SerializeObject(currentParty, Formatting.Indented));
+            File.WriteAllText(fullPath, JsonConvert.SerializeObject(currentParty, Formatting.Indented));
         }
 
         public Party ImportPartyFromJson(string path)

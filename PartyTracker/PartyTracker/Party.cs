@@ -8,8 +8,8 @@ namespace PartyTracker
 {
     public class Party
     {
-        public string PartyNotes { get; private set; }
         public string PartyName { get; private set; }
+        public string PartyNotes { get; private set; }
         public List<Player> Players { get; }
 
         public event EventHandler PlayerRemoved;
@@ -22,8 +22,8 @@ namespace PartyTracker
         
         public Party()
         {
+            PartyName = $"Party_{DateTime.Now.ToString("yyyy-MM-dd_HHmmss")}";
             PartyNotes = "";
-            PartyName = "";
             Players = new List<Player>();
 
             IDCounter = 0;

@@ -25,9 +25,18 @@ namespace PartyTracker
             pm.CurrentParty.PartyNameChanged += new EventHandler(pm_PartyNameChanged);
 
             autosaveChangesToolStripMenuItem.Checked = Properties.Settings.Default.AutoSave;
+
+            RefreshAllComponents();
         }
 
-        private void refreshPanel()
+        private void RefreshAllComponents()
+        {
+            RefreshPanel();
+            RefreshPartyNotes();
+            RefreshPartyName();
+        }
+
+        private void RefreshPanel()
         {
             foreach (PlayerControl p in playerFlowPanel.Controls)
             {
@@ -42,9 +51,14 @@ namespace PartyTracker
             }
         }
 
-        private void refreshPartyNotes()
+        private void RefreshPartyNotes()
         {
             partyNoteBox.DocumentText = Markdig.Markdown.ToHtml(pm.CurrentParty.PartyNotes);
+        }
+
+        private void RefreshPartyName()
+        {
+            partyNameLabel.Text = pm.CurrentParty.PartyName;
         }
 
         private void autosaveChangesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -57,7 +71,7 @@ namespace PartyTracker
         private void addPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pm.AddPlayer();
-            refreshPanel();
+            RefreshPanel();
         }
 
         private void startStopDeleteModeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -92,12 +106,12 @@ namespace PartyTracker
 
         private void pm_PartyNotesChanged(object sender, EventArgs e)
         {
-            refreshPartyNotes();
+            RefreshPartyNotes();
         }
 
         private void pm_PartyNameChanged(object sender, EventArgs e)
         {
-            partyNameLabel.Text = pm.CurrentParty.PartyName;
+            RefreshPartyName();
         }
 
         private void editPartyNotesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -112,7 +126,8 @@ namespace PartyTracker
 
         private void newPartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            pm.CreateNewParty();
+            RefreshAllComponents();
         }
 
         private void savePartyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -127,7 +142,7 @@ namespace PartyTracker
                 }
             }
 
-            //to do: actually save
+            pm.SaveParty();
         }
 
         private void loadPartyToolStripMenuItem_Click(object sender, EventArgs e)
