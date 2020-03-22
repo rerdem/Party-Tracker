@@ -19,11 +19,11 @@ namespace PartyTracker
             InitializeComponent();
             
             pm = partyManager;
-            pm.PartyLoadComplete += new EventHandler(pm_PartyLoadComplete);
-            pm.CurrentParty.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
-            pm.CurrentParty.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
-            pm.CurrentParty.PartyNotesChanged += new EventHandler(pm_PartyNotesChanged);
-            pm.CurrentParty.PartyNameChanged += new EventHandler(pm_PartyNameChanged);
+            pm.PartyLoadComplete += pm_PartyLoadComplete;
+            pm.CurrentParty.PlayerRemoved += pm_PlayerRemoved;
+            pm.CurrentParty.LastPlayerRemoved += pm_LastPlayerRemoved;
+            pm.CurrentParty.PartyNotesChanged += pm_PartyNotesChanged;
+            pm.CurrentParty.PartyNameChanged += pm_PartyNameChanged;
 
             autosaveChangesToolStripMenuItem.Checked = Properties.Settings.Default.AutoSave;
             loadLastPartyOnStartupToolStripMenuItem.Checked = Properties.Settings.Default.LoadLast;

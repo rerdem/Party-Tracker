@@ -14,7 +14,7 @@ namespace PartyTracker
         public string PlayerName { get; set; }
         public string Race { get; set; }
         public bool ShowAdditionalInfo { get; set; }
-        public string Class { get; set; }
+        public string CharacterClass { get; set; }
         public int Level { get; set; }
         public string Background { get; set; }
         public string Alignment { get; set; }
@@ -23,14 +23,14 @@ namespace PartyTracker
         public int MaxHP { get; set; }
         public string Notes { get; set; }
 
-        public Player(int inputID)
+        public Player(int playerID)
         {
-            PlayerID = inputID;
+            PlayerID = playerID;
             CharacterName = "";
             PlayerName = "";
             Race = "";
             ShowAdditionalInfo = true;
-            Class = "";
+            CharacterClass = "";
             Level = 1;
             Background = "";
             Alignment = "";
@@ -41,21 +41,21 @@ namespace PartyTracker
         }
 
         [JsonConstructor]
-        public Player(int inputID, string inputCharacterName, string inputPlayerName, string inputRace, bool inputShowAdditionalInfo, string inputClass, int inputLevel, string inputBackground, string inputAlignment, int inputAC, int inputPassivePerception, int inputMaxHP, string inputNotes)
+        public Player(int playerID, string characterName, string playerName, string race, bool showAdditionalInfo, string characterClass, int level, string background, string alignment, int ac, int passivePerception, int maxHP, string notes)
         {
-            PlayerID = inputID;
-            CharacterName = inputCharacterName;
-            PlayerName = inputPlayerName;
-            Race = inputRace;
-            ShowAdditionalInfo = inputShowAdditionalInfo;
-            Class = inputClass;
-            Level = inputLevel;
-            Background = inputBackground;
-            Alignment = inputAlignment;
-            AC = inputAC;
-            PassivePerception = inputPassivePerception;
-            MaxHP = inputMaxHP;
-            Notes = inputNotes;
+            PlayerID = playerID;
+            CharacterName = characterName;
+            PlayerName = playerName;
+            Race = race;
+            ShowAdditionalInfo = showAdditionalInfo;
+            CharacterClass = characterClass;
+            Level = level;
+            Background = background;
+            Alignment = alignment;
+            AC = ac;
+            PassivePerception = passivePerception;
+            MaxHP = maxHP;
+            Notes = notes;
         }
     }
 }

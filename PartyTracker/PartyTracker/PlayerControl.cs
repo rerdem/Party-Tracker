@@ -25,7 +25,7 @@ namespace PartyTracker
             charNameBox.Text = player.CharacterName;
             raceBox.Text = player.Race;
             playerNameBox.Text = player.PlayerName;
-            classBox.Text = player.Class;
+            classBox.Text = player.CharacterClass;
             levelBox.Value = player.Level;
             backgroundBox.Text = player.Background;
             alignmentBox.Text = player.Alignment;

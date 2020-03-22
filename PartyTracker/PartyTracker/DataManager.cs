@@ -42,6 +42,11 @@ namespace PartyTracker
             File.Delete(fullPath);
         }
 
+        public bool DoesPartyExist(string partyName)
+        {
+            return File.Exists($"{FolderPath}{partyName}.json");
+        }
+
         public void ExportPartyToJSON(Party currentParty)
         {
             string fullPath = $"{FolderPath}{currentParty.PartyName}.json";
