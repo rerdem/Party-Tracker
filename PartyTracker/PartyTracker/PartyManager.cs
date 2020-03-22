@@ -11,27 +11,35 @@ namespace PartyTracker
         public bool DeleteMode { get; private set; }
         public Party CurrentParty { get; private set; }
 
+        public event EventHandler PartyLoadComplete;
+
         private DataManager dm;
+        private int playerIDCounter;
         private string OldPartyName;
 
         public PartyManager()
         {
             CurrentParty = new Party();
             DeleteMode = false;
+            
             dm = new DataManager();
+            playerIDCounter = 0;
+            if (CurrentParty.Players.Count > 0)
+            {
+                ValidatePlayerIDCounter();
+            }
             OldPartyName = "";
 
             CurrentParty.PartyNameChanged += new EventHandler(cp_PartyNameChanged);
+
+            //to do:
+            //load last opened party, if desired
         }
 
         public void AddPlayer()
         {
-            CurrentParty.AddPlayer();
-        }
-
-        public void AddPlayer(string characterName, string playerName, string race, bool showAdditionalInfo, string characterClass, int level, string background, string alignment, int ac, int passivePerception, int maxHP, string notes)
-        {
-            CurrentParty.AddPlayer(characterName, playerName, race, showAdditionalInfo, characterClass, level, background, alignment, ac, passivePerception, maxHP, notes);
+            CurrentParty.AddPlayer(playerIDCounter);
+            playerIDCounter++;
         }
 
         public void RemovePlayer(int IDToRemove)
@@ -108,6 +116,7 @@ namespace PartyTracker
         {
             OldPartyName = CurrentParty.PartyName;
             CurrentParty.UpdatePartyName(newPartyName);
+            RefreshLastOpenedParty();
         }
 
         public void StartDeleteMode()
@@ -128,10 +137,27 @@ namespace PartyTracker
             return !dm.PartyList.Contains(partyName);
         }
 
+        public List<string> GetPartyList()
+        {
+            dm.RefreshPartyList();
+            return dm.PartyList;
+        }
+
         private void RefreshLastOpenedParty()
         {
             Properties.Settings.Default.LastOpenedParty = CurrentParty.PartyName;
             Properties.Settings.Default.Save();
+        }
+
+        private void ValidatePlayerIDCounter()
+        {
+            foreach (Player p in CurrentParty.Players)
+            {
+                if (p.PlayerID>playerIDCounter)
+                {
+                    playerIDCounter = p.PlayerID;
+                }
+            }
         }
 
         public void SaveParty()
@@ -141,9 +167,16 @@ namespace PartyTracker
             dm.RefreshPartyList();
         }
 
-        public void LoadParty()
+        public void LoadParty(string partyToLoad)
         {
-            //set last party name to current
+            //import and transfer data
+            CurrentParty = dm.ImportPartyFromJson(partyToLoad);
+            OldPartyName = "";
+
+            RefreshLastOpenedParty();
+
+            //trigger load complete event
+            OnPartyLoadComplete(null);
         }
 
         public void CreateNewParty()
@@ -153,15 +186,28 @@ namespace PartyTracker
 
         private void cp_PartyNameChanged(object sender, EventArgs e)
         {
-            SaveParty();
-            RefreshLastOpenedParty();
-            
-            if (!string.IsNullOrWhiteSpace(OldPartyName))
+            if (CurrentParty.PartyName!=OldPartyName)
             {
-                dm.DeleteParty(OldPartyName);
-            }
+                SaveParty();
+                RefreshLastOpenedParty();
 
-            dm.RefreshPartyList();
+                if (!string.IsNullOrWhiteSpace(OldPartyName))
+                {
+                    dm.DeleteParty(OldPartyName);
+                }
+
+                dm.RefreshPartyList();
+
+                OldPartyName = "";
+            }
+        }
+        protected virtual void OnPartyLoadComplete(EventArgs e)
+        {
+            EventHandler handler = PartyLoadComplete;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
     }
 }

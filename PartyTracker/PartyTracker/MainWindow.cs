@@ -19,12 +19,14 @@ namespace PartyTracker
             InitializeComponent();
             
             pm = partyManager;
+            pm.PartyLoadComplete += new EventHandler(pm_PartyLoadComplete);
             pm.CurrentParty.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
             pm.CurrentParty.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
             pm.CurrentParty.PartyNotesChanged += new EventHandler(pm_PartyNotesChanged);
             pm.CurrentParty.PartyNameChanged += new EventHandler(pm_PartyNameChanged);
 
             autosaveChangesToolStripMenuItem.Checked = Properties.Settings.Default.AutoSave;
+            loadLastPartyOnStartupToolStripMenuItem.Checked = Properties.Settings.Default.LoadLast;
 
             RefreshAllComponents();
         }
@@ -68,6 +70,13 @@ namespace PartyTracker
             Properties.Settings.Default.Save();
         }
 
+        private void loadLastPartyOnStartupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            loadLastPartyOnStartupToolStripMenuItem.Checked = !loadLastPartyOnStartupToolStripMenuItem.Checked;
+            Properties.Settings.Default.LoadLast = loadLastPartyOnStartupToolStripMenuItem.Checked;
+            Properties.Settings.Default.Save();
+        }
+
         private void addPlayerToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pm.AddPlayer();
@@ -92,6 +101,11 @@ namespace PartyTracker
                     p.HideDeleteButton();
                 }
             }
+        }
+
+        private void pm_PartyLoadComplete(object sender, EventArgs e)
+        {
+            RefreshAllComponents();
         }
 
         private void pm_PlayerRemoved(object sender, EventArgs e)
@@ -147,7 +161,12 @@ namespace PartyTracker
 
         private void loadPartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            LoadForm loadWindow = new LoadForm();
+            string partyToLoad = loadWindow.ShowDialog(pm.GetPartyList());
+            if (!string.IsNullOrEmpty(partyToLoad))
+            {
+                pm.LoadParty(partyToLoad);
+            }
         }
 
         private void renamePartyToolStripMenuItem_Click(object sender, EventArgs e)

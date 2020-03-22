@@ -31,12 +31,12 @@
             this.contentPanel = new System.Windows.Forms.Panel();
             this.partyNameBox = new System.Windows.Forms.TextBox();
             this.partyNameLabel = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.buttonPanel = new System.Windows.Forms.Panel();
             this.okButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.errorLabel = new System.Windows.Forms.Label();
             this.contentPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.buttonPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // contentPanel
@@ -68,15 +68,15 @@
             this.partyNameLabel.TabIndex = 0;
             this.partyNameLabel.Text = "Choose the name of your party:";
             // 
-            // panel1
+            // buttonPanel
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.Controls.Add(this.okButton);
-            this.panel1.Controls.Add(this.CancelButton);
-            this.panel1.Location = new System.Drawing.Point(170, 91);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(166, 30);
-            this.panel1.TabIndex = 1;
+            this.buttonPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonPanel.Controls.Add(this.okButton);
+            this.buttonPanel.Controls.Add(this.CancelButton);
+            this.buttonPanel.Location = new System.Drawing.Point(170, 91);
+            this.buttonPanel.Name = "buttonPanel";
+            this.buttonPanel.Size = new System.Drawing.Size(166, 30);
+            this.buttonPanel.TabIndex = 1;
             // 
             // okButton
             // 
@@ -117,13 +117,13 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(348, 133);
             this.Controls.Add(this.errorLabel);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.buttonPanel);
             this.Controls.Add(this.contentPanel);
             this.Name = "SaveForm";
             this.Text = "SaveForm";
             this.contentPanel.ResumeLayout(false);
             this.contentPanel.PerformLayout();
-            this.panel1.ResumeLayout(false);
+            this.buttonPanel.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -133,7 +133,7 @@
         private System.Windows.Forms.Panel contentPanel;
         private System.Windows.Forms.TextBox partyNameBox;
         private System.Windows.Forms.Label partyNameLabel;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel buttonPanel;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button CancelButton;
         private System.Windows.Forms.Label errorLabel;

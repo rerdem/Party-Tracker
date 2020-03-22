@@ -40,11 +40,12 @@
             this.managePartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.addPlayerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.startStopDeleteModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.renamePartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editPartyNotesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.playerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.partyNoteBox = new System.Windows.Forms.WebBrowser();
             this.partyNameLabel = new System.Windows.Forms.Label();
-            this.renamePartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadLastPartyOnStartupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -76,39 +77,40 @@
             // newPartyToolStripMenuItem
             // 
             this.newPartyToolStripMenuItem.Name = "newPartyToolStripMenuItem";
-            this.newPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.newPartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.newPartyToolStripMenuItem.Text = "New Party";
             this.newPartyToolStripMenuItem.Click += new System.EventHandler(this.newPartyToolStripMenuItem_Click);
             // 
             // savePartyToolStripMenuItem
             // 
             this.savePartyToolStripMenuItem.Name = "savePartyToolStripMenuItem";
-            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.savePartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.savePartyToolStripMenuItem.Text = "Save Party";
             this.savePartyToolStripMenuItem.Click += new System.EventHandler(this.savePartyToolStripMenuItem_Click);
             // 
             // loadPartyToolStripMenuItem
             // 
             this.loadPartyToolStripMenuItem.Name = "loadPartyToolStripMenuItem";
-            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.loadPartyToolStripMenuItem.Text = "Load Party";
             this.loadPartyToolStripMenuItem.Click += new System.EventHandler(this.loadPartyToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(127, 6);
             // 
             // quitToolStripMenuItem
             // 
             this.quitToolStripMenuItem.Name = "quitToolStripMenuItem";
-            this.quitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.quitToolStripMenuItem.Size = new System.Drawing.Size(130, 22);
             this.quitToolStripMenuItem.Text = "Quit";
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.autosaveChangesToolStripMenuItem});
+            this.autosaveChangesToolStripMenuItem,
+            this.loadLastPartyOnStartupToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -118,7 +120,7 @@
             this.autosaveChangesToolStripMenuItem.Checked = true;
             this.autosaveChangesToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.autosaveChangesToolStripMenuItem.Name = "autosaveChangesToolStripMenuItem";
-            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.autosaveChangesToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
             this.autosaveChangesToolStripMenuItem.Text = "Autosave Changes";
             this.autosaveChangesToolStripMenuItem.Click += new System.EventHandler(this.autosaveChangesToolStripMenuItem_Click);
             // 
@@ -145,6 +147,13 @@
             this.startStopDeleteModeToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
             this.startStopDeleteModeToolStripMenuItem.Text = "Start/Stop Delete Mode";
             this.startStopDeleteModeToolStripMenuItem.Click += new System.EventHandler(this.startStopDeleteModeToolStripMenuItem_Click);
+            // 
+            // renamePartyToolStripMenuItem
+            // 
+            this.renamePartyToolStripMenuItem.Name = "renamePartyToolStripMenuItem";
+            this.renamePartyToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
+            this.renamePartyToolStripMenuItem.Text = "Rename Party";
+            this.renamePartyToolStripMenuItem.Click += new System.EventHandler(this.renamePartyToolStripMenuItem_Click);
             // 
             // editPartyNotesToolStripMenuItem
             // 
@@ -183,12 +192,14 @@
             this.partyNameLabel.TabIndex = 3;
             this.partyNameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // renamePartyToolStripMenuItem
+            // loadLastPartyOnStartupToolStripMenuItem
             // 
-            this.renamePartyToolStripMenuItem.Name = "renamePartyToolStripMenuItem";
-            this.renamePartyToolStripMenuItem.Size = new System.Drawing.Size(197, 22);
-            this.renamePartyToolStripMenuItem.Text = "Rename Party";
-            this.renamePartyToolStripMenuItem.Click += new System.EventHandler(this.renamePartyToolStripMenuItem_Click);
+            this.loadLastPartyOnStartupToolStripMenuItem.Checked = true;
+            this.loadLastPartyOnStartupToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.loadLastPartyOnStartupToolStripMenuItem.Name = "loadLastPartyOnStartupToolStripMenuItem";
+            this.loadLastPartyOnStartupToolStripMenuItem.Size = new System.Drawing.Size(212, 22);
+            this.loadLastPartyOnStartupToolStripMenuItem.Text = "Load Last Party on Startup";
+            this.loadLastPartyOnStartupToolStripMenuItem.Click += new System.EventHandler(this.loadLastPartyOnStartupToolStripMenuItem_Click);
             // 
             // MainWindow
             // 
@@ -228,6 +239,7 @@
         private System.Windows.Forms.ToolStripMenuItem editPartyNotesToolStripMenuItem;
         private System.Windows.Forms.Label partyNameLabel;
         private System.Windows.Forms.ToolStripMenuItem renamePartyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadLastPartyOnStartupToolStripMenuItem;
     }
 }
 

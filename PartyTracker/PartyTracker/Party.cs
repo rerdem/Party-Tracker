@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,28 +18,30 @@ namespace PartyTracker
 
         public event EventHandler PartyNotesChanged;
         public event EventHandler PartyNameChanged;
-
-        private int IDCounter;
         
         public Party()
         {
             PartyName = $"Party_{DateTime.Now.ToString("yyyy-MM-dd_HHmmss")}";
             PartyNotes = "";
             Players = new List<Player>();
-
-            IDCounter = 0;
         }
 
-        public void AddPlayer()
+        [JsonConstructor]
+        public Party(string partyName, string partyNotes, List<Player> players)
         {
-            Players.Add(new Player(IDCounter));
-            IDCounter++;
+            PartyName = partyName;
+            PartyNotes = partyNotes;
+            Players = players;
         }
 
-        public void AddPlayer(string characterName, string playerName, string race, bool showAdditionalInfo, string characterClass, int level, string background, string alignment, int ac, int passivePerception, int maxHP, string notes)
+        public void AddPlayer(int playerID)
         {
-            Players.Add(new Player(IDCounter, characterName, playerName, race, showAdditionalInfo, characterClass, level, background, alignment, ac, passivePerception, maxHP, notes));
-            IDCounter++;
+            Players.Add(new Player(playerID));
+        }
+
+        public void AddPlayer(int playerID, string characterName, string playerName, string race, bool showAdditionalInfo, string characterClass, int level, string background, string alignment, int ac, int passivePerception, int maxHP, string notes)
+        {
+            Players.Add(new Player(playerID, characterName, playerName, race, showAdditionalInfo, characterClass, level, background, alignment, ac, passivePerception, maxHP, notes));
         }
 
         public void RemovePlayer(int IDToRemove)
@@ -140,7 +143,7 @@ namespace PartyTracker
 
             OnPartyNameChanged(null);
         }
-                
+
         protected virtual void OnPlayerRemoved(EventArgs e)
         {
             EventHandler handler = PlayerRemoved;

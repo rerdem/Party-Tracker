@@ -51,8 +51,9 @@ namespace PartyTracker
             File.WriteAllText(fullPath, JsonConvert.SerializeObject(currentParty, Formatting.Indented));
         }
 
-        public Party ImportPartyFromJson(string path)
+        public Party ImportPartyFromJson(string partyName)
         {
+            string path = $"{FolderPath}{partyName}.json";
             Party loadedParty = new Party();
             
             if (File.Exists(path))

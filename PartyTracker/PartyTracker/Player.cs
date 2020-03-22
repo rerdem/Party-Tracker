@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -39,6 +40,7 @@ namespace PartyTracker
             Notes = "";
         }
 
+        [JsonConstructor]
         public Player(int inputID, string inputCharacterName, string inputPlayerName, string inputRace, bool inputShowAdditionalInfo, string inputClass, int inputLevel, string inputBackground, string inputAlignment, int inputAC, int inputPassivePerception, int inputMaxHP, string inputNotes)
         {
             PlayerID = inputID;

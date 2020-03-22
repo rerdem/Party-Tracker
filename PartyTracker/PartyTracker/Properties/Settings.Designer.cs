@@ -46,5 +46,17 @@ namespace PartyTracker.Properties {
                 this["LastOpenedParty"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool LoadLast {
+            get {
+                return ((bool)(this["LoadLast"]));
+            }
+            set {
+                this["LoadLast"] = value;
+            }
+        }
     }
 }
