@@ -25,7 +25,7 @@ namespace PartyTracker
             RefreshPartyList();
         }
 
-        public void RefreshPartyList()
+        private void RefreshPartyList()
         {
             PartyList = Directory.GetFiles(FolderPath, "*.json")
                         .Select(Path.GetFileNameWithoutExtension)
@@ -36,6 +36,7 @@ namespace PartyTracker
         {
             string fullPath = $"{FolderPath}{partyNameToDelete}.json";
             File.Delete(fullPath);
+            RefreshPartyList();
         }
 
         public bool DoesPartyExist(string partyName)
@@ -50,6 +51,7 @@ namespace PartyTracker
             FileInfo file = new FileInfo(fullPath.Substring(0, indexOfLastBackslash));
             file.Directory.Create();
             File.WriteAllText(fullPath, JsonConvert.SerializeObject(currentParty, Formatting.Indented));
+            RefreshPartyList();
 
             OnFileSaved(null);
         }

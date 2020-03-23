@@ -125,9 +125,11 @@ namespace PartyTracker
 
         public void UpdatePartyName(string newPartyName)
         {
-            OldPartyName = CurrentParty.PartyName;
+            if (string.IsNullOrWhiteSpace(OldPartyName))
+            {
+                OldPartyName = CurrentParty.PartyName;
+            }
             CurrentParty.UpdatePartyName(newPartyName);
-            RefreshLastOpenedParty();
         }
 
         public void ActivateDeleteMode()
@@ -154,7 +156,6 @@ namespace PartyTracker
 
         public List<string> GetPartyList()
         {
-            dm.RefreshPartyList();
             return dm.PartyList;
         }
 
@@ -187,7 +188,13 @@ namespace PartyTracker
         {
             dm.ExportPartyToJSON(CurrentParty);
             RefreshLastOpenedParty();
-            dm.RefreshPartyList();
+
+            //if there was a party name change since the last save, delete the old json file
+            if ((CurrentParty.PartyName != OldPartyName) && (!string.IsNullOrWhiteSpace(OldPartyName)))
+            {
+                dm.DeleteParty(OldPartyName);
+                OldPartyName = "";
+            }
         }
 
         public void LoadParty(string partyToLoad)
@@ -200,7 +207,6 @@ namespace PartyTracker
             ValidatePlayerIDCounter();
 
             //re-subscribe to events
-            CurrentParty.PartyNameChanged += new EventHandler(cp_PartyNameChanged);
             CurrentParty.PartyChanged += new EventHandler(cp_PartyChanged);
 
             RefreshLastOpenedParty();
@@ -219,7 +225,6 @@ namespace PartyTracker
             ValidatePlayerIDCounter();
 
             //re-subscribe to events
-            CurrentParty.PartyNameChanged += new EventHandler(cp_PartyNameChanged);
             CurrentParty.PartyChanged += new EventHandler(cp_PartyChanged);
 
             RefreshLastOpenedParty();
@@ -232,24 +237,6 @@ namespace PartyTracker
         {
             dm.DeleteParty(CurrentParty.PartyName);
             CreateNewParty();
-        }
-
-        private void cp_PartyNameChanged(object sender, EventArgs e)
-        {
-            if ((CurrentParty.PartyName!=OldPartyName) && (!string.IsNullOrWhiteSpace(OldPartyName)))
-            {
-                SaveParty();
-                RefreshLastOpenedParty();
-
-                if (!string.IsNullOrWhiteSpace(OldPartyName))
-                {
-                    dm.DeleteParty(OldPartyName);
-                }
-
-                dm.RefreshPartyList();
-
-                OldPartyName = "";
-            }
         }
 
         private void cp_PartyChanged(object sender, EventArgs e)

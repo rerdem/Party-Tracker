@@ -43,13 +43,6 @@ namespace PartyTracker
             OnPartyChanged(null);
         }
 
-        public void AddPlayer(int playerID, string characterName, string playerName, string race, bool showAdditionalInfo, string characterClass, int level, string background, string alignment, int ac, int passivePerception, int maxHP, string notes)
-        {
-            Players.Add(new Player(playerID, characterName, playerName, race, showAdditionalInfo, characterClass, level, background, alignment, ac, passivePerception, maxHP, notes));
-
-            OnPartyChanged(null);
-        }
-
         public void RemovePlayer(int IDToRemove)
         {
             int indexToRemove = Players.FindIndex(p => p.PlayerID == IDToRemove);
@@ -171,16 +164,9 @@ namespace PartyTracker
         public void UpdatePartyName(string newPartyName)
         {
             PartyName = newPartyName;
-            Properties.Settings.Default.LastOpenedParty = newPartyName;
-            Properties.Settings.Default.Save();
-
+            
             OnPartyNameChanged(null);
             OnPartyChanged(null);
-        }
-
-        public void ResetPartyNameToDefault()
-        {
-            UpdatePartyName($"Party_{DateTime.Now.ToString("yyyy-MM-dd_HHmmss")}");
         }
 
         protected virtual void OnPlayerRemoved(EventArgs e)

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.createNewPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -220,6 +221,7 @@
             this.Controls.Add(this.partyNoteBox);
             this.Controls.Add(this.playerFlowPanel);
             this.Controls.Add(this.mainMenu);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Name = "MainWindow";
             this.Text = "Party Tracker";

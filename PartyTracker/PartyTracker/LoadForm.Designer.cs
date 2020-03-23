@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LoadForm));
             this.okButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
             this.buttonPanel = new System.Windows.Forms.Panel();
@@ -96,6 +97,7 @@
             this.ClientSize = new System.Drawing.Size(326, 105);
             this.Controls.Add(this.contentPanel);
             this.Controls.Add(this.buttonPanel);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "LoadForm";
             this.Text = "Load Party...";
             this.buttonPanel.ResumeLayout(false);
