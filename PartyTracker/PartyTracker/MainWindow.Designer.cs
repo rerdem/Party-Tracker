@@ -30,9 +30,10 @@
         {
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.newPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.createNewPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.savePartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteCurrentPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.quitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +47,6 @@
             this.playerFlowPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.partyNoteBox = new System.Windows.Forms.WebBrowser();
             this.partyNameLabel = new System.Windows.Forms.Label();
-            this.deleteAPartyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,22 +66,22 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.newPartyToolStripMenuItem,
+            this.createNewPartyToolStripMenuItem,
             this.savePartyToolStripMenuItem,
             this.loadPartyToolStripMenuItem,
-            this.deleteAPartyToolStripMenuItem,
+            this.deleteCurrentPartyToolStripMenuItem,
             this.toolStripSeparator1,
             this.quitToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
             // 
-            // newPartyToolStripMenuItem
+            // createNewPartyToolStripMenuItem
             // 
-            this.newPartyToolStripMenuItem.Name = "newPartyToolStripMenuItem";
-            this.newPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.newPartyToolStripMenuItem.Text = "Create New Party";
-            this.newPartyToolStripMenuItem.Click += new System.EventHandler(this.newPartyToolStripMenuItem_Click);
+            this.createNewPartyToolStripMenuItem.Name = "createNewPartyToolStripMenuItem";
+            this.createNewPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.createNewPartyToolStripMenuItem.Text = "Create New Party";
+            this.createNewPartyToolStripMenuItem.Click += new System.EventHandler(this.createNewPartyToolStripMenuItem_Click);
             // 
             // savePartyToolStripMenuItem
             // 
@@ -96,6 +96,13 @@
             this.loadPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadPartyToolStripMenuItem.Text = "Load Party...";
             this.loadPartyToolStripMenuItem.Click += new System.EventHandler(this.loadPartyToolStripMenuItem_Click);
+            // 
+            // deleteCurrentPartyToolStripMenuItem
+            // 
+            this.deleteCurrentPartyToolStripMenuItem.Name = "deleteCurrentPartyToolStripMenuItem";
+            this.deleteCurrentPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.deleteCurrentPartyToolStripMenuItem.Text = "Delete Current Party";
+            this.deleteCurrentPartyToolStripMenuItem.Click += new System.EventHandler(this.deleteCurrentPartyToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -203,13 +210,6 @@
             this.partyNameLabel.TabIndex = 3;
             this.partyNameLabel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // deleteAPartyToolStripMenuItem
-            // 
-            this.deleteAPartyToolStripMenuItem.Name = "deleteAPartyToolStripMenuItem";
-            this.deleteAPartyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.deleteAPartyToolStripMenuItem.Text = "Delete Current Party";
-            this.deleteAPartyToolStripMenuItem.Click += new System.EventHandler(this.deleteAPartyToolStripMenuItem_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -244,12 +244,12 @@
         private System.Windows.Forms.WebBrowser partyNoteBox;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem autosaveChangesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem newPartyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem createNewPartyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editPartyNotesToolStripMenuItem;
         private System.Windows.Forms.Label partyNameLabel;
         private System.Windows.Forms.ToolStripMenuItem renamePartyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem loadLastPartyOnStartupToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem deleteAPartyToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem deleteCurrentPartyToolStripMenuItem;
     }
 }
 

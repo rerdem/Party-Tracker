@@ -143,7 +143,7 @@ namespace PartyTracker
             }
         }
 
-        private void newPartyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void createNewPartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             pm.CreateNewParty();
             RefreshAllComponents();
@@ -184,9 +184,9 @@ namespace PartyTracker
             }
         }
 
-        private void deleteAPartyToolStripMenuItem_Click(object sender, EventArgs e)
+        private void deleteCurrentPartyToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            pm.DeleteCurrentParty();
         }
     }
 }

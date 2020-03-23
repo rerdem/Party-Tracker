@@ -188,9 +188,6 @@ namespace PartyTracker
 
         public void LoadParty(string partyToLoad)
         {
-            //unsubscribe events
-            //CurrentParty.PartyChanged -= cp_PartyChanged;
-
             //import and transfer data
             CurrentParty = dm.ImportPartyFromJson(partyToLoad);
             OldPartyName = "";
@@ -210,9 +207,6 @@ namespace PartyTracker
 
         public void CreateNewParty()
         {
-            //unsubscribe events
-            //CurrentParty.PartyChanged -= cp_PartyChanged;
-
             //import and transfer data
             CurrentParty = new Party();
             OldPartyName = "";
@@ -228,6 +222,12 @@ namespace PartyTracker
 
             //trigger creation  complete event
             OnPartyCreationComplete(null);
+        }
+
+        public void DeleteCurrentParty()
+        {
+            dm.DeleteParty(CurrentParty.PartyName);
+            CreateNewParty();
         }
 
         private void cp_PartyNameChanged(object sender, EventArgs e)
