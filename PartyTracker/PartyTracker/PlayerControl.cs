@@ -14,6 +14,7 @@ namespace PartyTracker
     {
         private PartyManager pm;
         private Player player;
+        private bool InitialContentLoaded;
 
         public PlayerControl(PartyManager partyManager, Player inputPlayer)
         {
@@ -21,7 +22,16 @@ namespace PartyTracker
 
             pm = partyManager;
             player = inputPlayer;
+            InitialContentLoaded = false;
 
+            LoadInitialContent();
+
+            pm.StartDeleteMode += new EventHandler(pm_StartDeleteMode);
+            pm.StopDeleteMode += new EventHandler(pm_StopDeleteMode);
+        }
+
+        private void LoadInitialContent()
+        {
             charNameBox.Text = player.CharacterName;
             raceBox.Text = player.Race;
             playerNameBox.Text = player.PlayerName;
@@ -52,70 +62,105 @@ namespace PartyTracker
                 deleteButton.Visible = false;
             }
 
-            pm.StartDeleteMode += new EventHandler(pm_StartDeleteMode);
-            pm.StopDeleteMode += new EventHandler(pm_StopDeleteMode);
+            InitialContentLoaded = true;
         }
 
         private void expandButton_Click(object sender, EventArgs e)
         {
-            pm.UpdateShowAdditionalInfo(player.PlayerID, !player.ShowAdditionalInfo);
-            classPanel.Visible = !classPanel.Visible;
+            if (InitialContentLoaded)
+            {
+                pm.UpdateShowAdditionalInfo(player.PlayerID, !player.ShowAdditionalInfo);
+                classPanel.Visible = !classPanel.Visible;
+            }
         }
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            pm.RemovePlayer(player.PlayerID);
-            this.Dispose();
+            if (InitialContentLoaded)
+            {
+                pm.RemovePlayer(player.PlayerID);
+                this.Dispose();
+            }
         }
 
         private void charNameBox_TextChanged(object sender, EventArgs e)
         {
-            pm.UpdateCharacterName(player.PlayerID, charNameBox.Text);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateCharacterName(player.PlayerID, charNameBox.Text);
+            }
         }
 
         private void raceBox_TextChanged(object sender, EventArgs e)
         {
-            pm.UpdateRace(player.PlayerID, raceBox.Text);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateRace(player.PlayerID, raceBox.Text);
+            }
         }
 
         private void playerNameBox_TextChanged(object sender, EventArgs e)
         {
-            pm.UpdatePlayerName(player.PlayerID, playerNameBox.Text);
+            if (InitialContentLoaded)
+            {
+                pm.UpdatePlayerName(player.PlayerID, playerNameBox.Text);
+            }
         }
 
         private void classBox_TextChanged(object sender, EventArgs e)
         {
-            pm.UpdateClass(player.PlayerID, classBox.Text);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateClass(player.PlayerID, classBox.Text);
+            }
         }
 
         private void levelBox_ValueChanged(object sender, EventArgs e)
         {
-            pm.UpdateLevel(player.PlayerID, (int)levelBox.Value);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateLevel(player.PlayerID, (int)levelBox.Value);
+            }
         }
 
         private void backgroundBox_TextChanged(object sender, EventArgs e)
         {
-            pm.UpdateBackground(player.PlayerID, backgroundBox.Text);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateBackground(player.PlayerID, backgroundBox.Text);
+            }
         }
 
         private void alignmentBox_TextChanged(object sender, EventArgs e)
         {
-            pm.UpdateAlignment(player.PlayerID, alignmentBox.Text);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateAlignment(player.PlayerID, alignmentBox.Text);
+            }
         }
 
         private void acBox_ValueChanged(object sender, EventArgs e)
         {
-            pm.UpdateArmorClass(player.PlayerID, (int)acBox.Value);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateArmorClass(player.PlayerID, (int)acBox.Value);
+            }
         }
 
         private void passivePerceptionBox_ValueChanged(object sender, EventArgs e)
         {
-            pm.UpdatePassivePercetion(player.PlayerID, (int)passivePerceptionBox.Value);
+            if (InitialContentLoaded)
+            {
+                pm.UpdatePassivePercetion(player.PlayerID, (int)passivePerceptionBox.Value);
+            }
         }
 
         private void maxHPBox_ValueChanged(object sender, EventArgs e)
         {
-            pm.UpdateMaxHP(player.PlayerID, (int)maxHPBox.Value);
+            if (InitialContentLoaded)
+            {
+                pm.UpdateMaxHP(player.PlayerID, (int)maxHPBox.Value);
+            }
         }
 
         private void noteEditButton_Click(object sender, EventArgs e)

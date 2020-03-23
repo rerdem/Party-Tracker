@@ -188,5 +188,24 @@ namespace PartyTracker
         {
             pm.DeleteCurrentParty();
         }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!pm.ChangesSaved)
+            {
+                DialogResult confirmResult = MessageBox.Show("You have unsaved changes. Are you sure, you wish to quit and lose any changes since the last save?",
+                                     "Unsaved changes detected!",
+                                     MessageBoxButtons.YesNo);
+                if (confirmResult == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+        }
     }
 }

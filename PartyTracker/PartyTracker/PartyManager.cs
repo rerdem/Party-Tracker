@@ -9,6 +9,7 @@ namespace PartyTracker
     public class PartyManager
     {
         public bool DeleteMode { get; private set; }
+        public bool ChangesSaved { get; private set; }
         public Party CurrentParty { get; private set; }
 
         public event EventHandler PartyLoadComplete;
@@ -24,8 +25,11 @@ namespace PartyTracker
         {
             CurrentParty = new Party();
             DeleteMode = false;
+            ChangesSaved = true;
             
             dm = new DataManager();
+            dm.FileSaved += new EventHandler(dm_FileSaved);
+
             playerIDCounter = 0;
             if (CurrentParty.Players.Count > 0)
             {
@@ -250,10 +254,17 @@ namespace PartyTracker
 
         private void cp_PartyChanged(object sender, EventArgs e)
         {
+            ChangesSaved = false;
+
             if (Properties.Settings.Default.AutoSave)
             {
                 SaveParty();
             }
+        }
+
+        private void dm_FileSaved(object sender, EventArgs e)
+        {
+            ChangesSaved = true;
         }
 
         protected virtual void OnPartyLoadComplete(EventArgs e)

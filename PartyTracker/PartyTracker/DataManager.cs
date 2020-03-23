@@ -10,13 +10,9 @@ namespace PartyTracker
 {
     public class DataManager
     {
-        //TO DO
-        //read or create config
-        //read or create default party
-        //save party
-        //load party
-
         public List<string> PartyList { get; private set; }
+
+        public event EventHandler FileSaved;
 
         private string FolderPath;
 
@@ -54,6 +50,8 @@ namespace PartyTracker
             FileInfo file = new FileInfo(fullPath.Substring(0, indexOfLastBackslash));
             file.Directory.Create();
             File.WriteAllText(fullPath, JsonConvert.SerializeObject(currentParty, Formatting.Indented));
+
+            OnFileSaved(null);
         }
 
         public Party ImportPartyFromJson(string partyName)
@@ -67,6 +65,15 @@ namespace PartyTracker
             }
 
             return loadedParty;
+        }
+
+        protected virtual void OnFileSaved(EventArgs e)
+        {
+            EventHandler handler = FileSaved;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
         }
     }
 }
