@@ -93,19 +93,11 @@ namespace PartyTracker
         {
             if (!pm.DeleteMode)
             {
-                pm.StartDeleteMode();
-                foreach (PlayerControl p in playerFlowPanel.Controls)
-                {
-                    p.ShowDeleteButton();
-                }
+                pm.ActivateDeleteMode();
             }
             else
             {
-                pm.StopDeleteMode();
-                foreach (PlayerControl p in playerFlowPanel.Controls)
-                {
-                    p.HideDeleteButton();
-                }
+                pm.DeactivateDeleteMode();
             }
         }
 
@@ -128,7 +120,7 @@ namespace PartyTracker
 
         private void pm_LastPlayerRemoved(object sender, EventArgs e)
         {
-            pm.StopDeleteMode();
+            pm.DeactivateDeleteMode();
         }
 
         private void pm_PartyNotesChanged(object sender, EventArgs e)

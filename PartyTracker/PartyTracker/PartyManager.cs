@@ -13,6 +13,8 @@ namespace PartyTracker
 
         public event EventHandler PartyLoadComplete;
         public event EventHandler PartyCreationComplete;
+        public event EventHandler StartDeleteMode;
+        public event EventHandler StopDeleteMode;
 
         private DataManager dm;
         private int playerIDCounter;
@@ -124,17 +126,21 @@ namespace PartyTracker
             RefreshLastOpenedParty();
         }
 
-        public void StartDeleteMode()
+        public void ActivateDeleteMode()
         {
             if (CurrentParty.Players.Count > 0)
             {
                 DeleteMode = true;
+
+                OnStartDeleteMode(null);
             }
         }
 
-        public void StopDeleteMode()
+        public void DeactivateDeleteMode()
         {
             DeleteMode = false;
+
+            OnStopDeleteMode(null);
         }
 
         public bool IsPartyNameUnique(string partyName)
@@ -262,6 +268,24 @@ namespace PartyTracker
         protected virtual void OnPartyCreationComplete(EventArgs e)
         {
             EventHandler handler = PartyCreationComplete;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnStartDeleteMode(EventArgs e)
+        {
+            EventHandler handler = StartDeleteMode;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnStopDeleteMode(EventArgs e)
+        {
+            EventHandler handler = StopDeleteMode;
             if (handler != null)
             {
                 handler(this, e);

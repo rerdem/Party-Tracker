@@ -51,16 +51,9 @@ namespace PartyTracker
             {
                 deleteButton.Visible = false;
             }
-        }
 
-        public void ShowDeleteButton()
-        {
-            deleteButton.Visible = true;
-        }
-
-        public void HideDeleteButton()
-        {
-            deleteButton.Visible = false;
+            pm.StartDeleteMode += new EventHandler(pm_StartDeleteMode);
+            pm.StopDeleteMode += new EventHandler(pm_StopDeleteMode);
         }
 
         private void expandButton_Click(object sender, EventArgs e)
@@ -134,6 +127,16 @@ namespace PartyTracker
                 pm.UpdateNotes(player.PlayerID, editingResult);
                 noteBrowser.DocumentText = Markdig.Markdown.ToHtml(player.Notes);
             }
+        }
+
+        private void pm_StartDeleteMode(object sender, EventArgs e)
+        {
+            deleteButton.Visible = true;
+        }
+
+        private void pm_StopDeleteMode(object sender, EventArgs e)
+        {
+            deleteButton.Visible = false;
         }
     }
 }
