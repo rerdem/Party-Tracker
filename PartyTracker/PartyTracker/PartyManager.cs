@@ -12,6 +12,7 @@ namespace PartyTracker
         public Party CurrentParty { get; private set; }
 
         public event EventHandler PartyLoadComplete;
+        public event EventHandler PartyCreationComplete;
 
         private DataManager dm;
         private int playerIDCounter;
@@ -29,8 +30,6 @@ namespace PartyTracker
                 ValidatePlayerIDCounter();
             }
             OldPartyName = "";
-
-            CurrentParty.PartyNameChanged += cp_PartyNameChanged;
 
             if ((Properties.Settings.Default.LoadLast) && (dm.DoesPartyExist(Properties.Settings.Default.LastOpenedParty)))
             {
@@ -127,7 +126,7 @@ namespace PartyTracker
 
         public void StartDeleteMode()
         {
-            if (CurrentParty.Players.Count>0)
+            if (CurrentParty.Players.Count > 0)
             {
                 DeleteMode = true;
             }
@@ -184,7 +183,7 @@ namespace PartyTracker
         public void LoadParty(string partyToLoad)
         {
             //unsubscribe events
-            CurrentParty.PartyChanged -= cp_PartyChanged;
+            //CurrentParty.PartyChanged -= cp_PartyChanged;
 
             //import and transfer data
             CurrentParty = dm.ImportPartyFromJson(partyToLoad);
@@ -194,7 +193,8 @@ namespace PartyTracker
             ValidatePlayerIDCounter();
 
             //re-subscribe to events
-            CurrentParty.PartyChanged += cp_PartyChanged;
+            CurrentParty.PartyNameChanged += new EventHandler(cp_PartyNameChanged);
+            CurrentParty.PartyChanged += new EventHandler(cp_PartyChanged);
 
             RefreshLastOpenedParty();
 
@@ -205,7 +205,7 @@ namespace PartyTracker
         public void CreateNewParty()
         {
             //unsubscribe events
-            CurrentParty.PartyChanged -= cp_PartyChanged;
+            //CurrentParty.PartyChanged -= cp_PartyChanged;
 
             //import and transfer data
             CurrentParty = new Party();
@@ -215,9 +215,13 @@ namespace PartyTracker
             ValidatePlayerIDCounter();
 
             //re-subscribe to events
-            CurrentParty.PartyChanged += cp_PartyChanged;
+            CurrentParty.PartyNameChanged += new EventHandler(cp_PartyNameChanged);
+            CurrentParty.PartyChanged += new EventHandler(cp_PartyChanged);
 
             RefreshLastOpenedParty();
+
+            //trigger creation  complete event
+            OnPartyCreationComplete(null);
         }
 
         private void cp_PartyNameChanged(object sender, EventArgs e)
@@ -249,6 +253,15 @@ namespace PartyTracker
         protected virtual void OnPartyLoadComplete(EventArgs e)
         {
             EventHandler handler = PartyLoadComplete;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+
+        protected virtual void OnPartyCreationComplete(EventArgs e)
+        {
+            EventHandler handler = PartyCreationComplete;
             if (handler != null)
             {
                 handler(this, e);

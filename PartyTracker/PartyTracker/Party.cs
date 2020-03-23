@@ -175,6 +175,7 @@ namespace PartyTracker
             Properties.Settings.Default.Save();
 
             OnPartyNameChanged(null);
+            OnPartyChanged(null);
         }
 
         public void ResetPartyNameToDefault()

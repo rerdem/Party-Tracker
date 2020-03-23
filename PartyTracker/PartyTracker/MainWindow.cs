@@ -19,11 +19,9 @@ namespace PartyTracker
             InitializeComponent();
             
             pm = partyManager;
-            pm.PartyLoadComplete += pm_PartyLoadComplete;
-            pm.CurrentParty.PlayerRemoved += pm_PlayerRemoved;
-            pm.CurrentParty.LastPlayerRemoved += pm_LastPlayerRemoved;
-            pm.CurrentParty.PartyNotesChanged += pm_PartyNotesChanged;
-            pm.CurrentParty.PartyNameChanged += pm_PartyNameChanged;
+            pm.PartyLoadComplete += new EventHandler(pm_PartyLoadComplete);
+            pm.PartyCreationComplete += new EventHandler(pm_PartyCreationComplete);
+            SubscribeToPartyEvents();
 
             autosaveChangesToolStripMenuItem.Checked = Properties.Settings.Default.AutoSave;
             loadLastPartyOnStartupToolStripMenuItem.Checked = Properties.Settings.Default.LoadLast;
@@ -61,6 +59,14 @@ namespace PartyTracker
         private void RefreshPartyName()
         {
             partyNameLabel.Text = pm.CurrentParty.PartyName;
+        }
+
+        private void SubscribeToPartyEvents()
+        {
+            pm.CurrentParty.PlayerRemoved += new EventHandler(pm_PlayerRemoved);
+            pm.CurrentParty.LastPlayerRemoved += new EventHandler(pm_LastPlayerRemoved);
+            pm.CurrentParty.PartyNotesChanged += new EventHandler(pm_PartyNotesChanged);
+            pm.CurrentParty.PartyNameChanged += new EventHandler(pm_PartyNameChanged);
         }
 
         private void autosaveChangesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -105,6 +111,13 @@ namespace PartyTracker
 
         private void pm_PartyLoadComplete(object sender, EventArgs e)
         {
+            SubscribeToPartyEvents();
+            RefreshAllComponents();
+        }
+
+        private void pm_PartyCreationComplete(object sender, EventArgs e)
+        {
+            SubscribeToPartyEvents();
             RefreshAllComponents();
         }
 
@@ -177,6 +190,11 @@ namespace PartyTracker
             {
                 pm.UpdatePartyName(newPartyName);
             }
+        }
+
+        private void deleteAPartyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
